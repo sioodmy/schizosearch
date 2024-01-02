@@ -1,22 +1,14 @@
 use anyhow::Result;
+use schizosearch::get_html;
 use scraper::{Html, Selector};
 
 use super::ResultHtml;
 
 pub async fn brave<'a>(query: &'a str) -> Result<Vec<ResultHtml>> {
-    let client = reqwest::Client::new();
-
-    let url = format!(
+    let html = get_html!(
         "https://search.brave.com/search?q={}&nfpr=1&spellcheck=0",
         query
     );
-    let resp = client
-        .get(&url)
-        .header("User-Agent","Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36" )
-        .send()
-        .await?;
-
-    let html = resp.text().await?;
     let fragment = Html::parse_document(&html);
     let selector = Selector::parse("div.snippet").unwrap();
     let mut results = Vec::new();

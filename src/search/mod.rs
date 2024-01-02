@@ -6,10 +6,11 @@ use tokio::try_join;
 
 mod brave;
 mod duckduckgo;
+// mod img;
 
 #[derive(Deserialize, Debug)]
 pub struct SearchQuery {
-    pub query: String,
+    pub q: String,
 }
 
 struct ResultHtml {
@@ -27,7 +28,7 @@ struct ResultsPage {
 #[debug_handler]
 pub async fn search(Form(query): Form<SearchQuery>) -> impl IntoResponse {
     let mut results = Vec::new();
-    let query = query.query;
+    let query = query.q;
     if let Ok((brave, duckduckgo)) = try_join!(brave::brave(&query), duckduckgo::duckduckgo(&query))
     {
         results.extend(brave);
