@@ -1,0 +1,21 @@
+@import "color";
+
+body {
+  background: $background;
+  color: $text;
+  margin: 0;
+  padding: 0;
+}
+
+input {
+  background: $input;
+  width: 500px;
+  color: $text;
+  height: 35px;
+  border: 1px solid $border;
+  border-radius: 15px;
+}
+
+input:focus {
+  outline: none;
+}

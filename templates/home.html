@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% let (style_sheet, class_name) = turf::inline_style_sheet!("style/home.scss") %}
+<main>
+  <div class="{{ class_name.title }}">
+    <h1><span>SchizoSearch</span> :3</h1>
+    <span> {{ splash }} </span>
+  </div>
+  <form action="/search" method="get">
+    <input type="text" name="query" autofocus>
+  </form>
+  </main>
+<style>
+  {{ style_sheet }}
+</style>
+{% endblock %}

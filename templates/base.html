@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Schizosearch</title>
+</head>
+
+<body>
+  {% block content %}{% endblock %}
+  {% let (style_sheet, class_name) = turf::inline_style_sheet!("style/main.scss") %}
+
+  <style>
+    {{ style_sheet }}
+  </style>
+
+</body>
+
+</html>

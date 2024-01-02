@@ -1,0 +1,36 @@
+@import "color"
+ 
+.result a {
+  color: $text;
+  text-decoration: none;
+  margin-top: 20px;
+}
+
+.result a h2 {
+  color: $link;
+}
+
+nav {
+  display: flex;
+  background-color: $navbar;
+  width: 100%;
+  padding: 10px;
+  justify-content: left;
+  align-items: center;
+  gap: 10px;
+  .logo {
+    text-decoration: none;
+    display: flex;
+    color: $logo;
+  }
+  input {
+    display: flex;
+    height: 30px;
+  }
+}
+
+main {
+  padding: 20px;
+}
+
+
