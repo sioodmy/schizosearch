@@ -1,0 +1,17 @@
+{% let (style_sheet, class_name) = turf::inline_style_sheet!("style/results.scss") %}
+
+<nav>
+  <div class="{{ class_name.topbar }}">
+    <a class="{{ class_name.logo }}" href="/">
+      <h2><span>SchizoSearch</span> :3</h2>
+    </a>
+    <form action="/search" method="get">
+      <input type="text" name="query" value="{{ query }}" autofocus>
+    </form>
+  </div>
+  <div class="{{ class_name.buttons}}">
+    <a class="{{ class_name.button }}" href="/img">Images</a>
+    <a class="{{ class_name.button }}" href="/vids">Videos</a>
+    <a class="{{ class_name.button }}" href="/torrents">Torrents</a>
+  </div>
+</nav>

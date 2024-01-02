@@ -4,28 +4,21 @@
 {% block content %}
 {% let (style_sheet, class_name) = turf::inline_style_sheet!("style/results.scss") %}
 
-<nav>
-<a class="{{ class_name.logo }}" href="/"><h1>SchizoSearch</h2></a>
-<form action="/search" method="get">
-  <input type="text" name="query" autofocus>
-</form>
-
-</nav>
+{% include "navbar.html" %}
 
 <main>
-<h3>Showing results for: {{ query }} </h3>
-{% for result in results %}
-<div class="{{ class_name.result }}">
-  <a href="{{ result.link}}">
-    {{ result.link }}
-    <h2>{{ result.title }}</h2>
-  </a>
-  <span> {{ result.description }} </span>
-</div>
+  {% for result in results %}
+  <div class="{{ class_name.result }}">
+    <a href="{{ result.link}}">
+      {{ result.link }}
+      <h2>{{ result.title }}</h2>
+    </a>
+    <span> {{ result.description }} </span>
+  </div>
 
-{% endfor %}
+  {% endfor %}
 </main>
 <style>
-  {{ style_sheet }}
+  {{ style_sheet}}
 </style>
 {% endblock %}

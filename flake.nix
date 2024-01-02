@@ -52,7 +52,7 @@
 
         
         devShells.default = pkgs.mkShell {
-          RUST_LOG = "debug";
+          RUST_LOG = "info";
           buildInputs = with pkgs;
             [
               inputs.fenix.packages.${system}.complete.toolchain

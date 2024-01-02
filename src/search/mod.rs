@@ -2,7 +2,7 @@ use askama::Template;
 use axum::{debug_handler, response::IntoResponse, Form};
 use schizosearch::HtmlTemplate;
 use serde::Deserialize;
-use tokio::{join, try_join};
+use tokio::try_join;
 
 mod brave;
 mod duckduckgo;

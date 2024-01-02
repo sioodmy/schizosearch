@@ -1,23 +1,44 @@
 @import "color"
  
+.result {
+  background: $result;
+  padding: 20px;
+  border-radius: 15px;
+  margin-bottom: 20px;
+}
 .result a {
-  color: $text;
+  color: $link;
   text-decoration: none;
-  margin-top: 20px;
 }
 
 .result a h2 {
-  color: $link;
+  color: $title;
 }
 
-nav {
+.buttons {
+  display:flex;
+  justify-content: left;
+  align-items: center;
+  gap: 20px;
+}
+.button {
+  font-weight: 600;
+  color: $logo;
+  text-decoration: none;
+}
+
+.topbar {
   display: flex;
-  background-color: $navbar;
-  width: 100%;
-  padding: 10px;
   justify-content: left;
   align-items: center;
   gap: 10px;
+}
+nav {
+  display: flex;
+  background-color: $navbar;
+  flex-direction: column;
+  width: 100%;
+  padding: 10px;
   .logo {
     text-decoration: none;
     display: flex;
@@ -31,6 +52,13 @@ nav {
 
 main {
   padding: 20px;
+}
+
+h2 { 
+  color: $text;
+  span {
+    color: $logo;
+  }
 }
 
 
