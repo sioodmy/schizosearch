@@ -1661,6 +1661,7 @@ dependencies = [
  "axum",
  "clap",
  "lazy_static",
+ "paste",
  "rand",
  "reqwest",
  "scraper",

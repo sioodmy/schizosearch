@@ -20,6 +20,7 @@ hacky workarounds.
 - [ ] docker container
 - [ ] theming using parameters
 - [ ] use macros, DRY, code refactor
+- [x] unit testing
 - [ ] remove all placeholders
 - [ ] handle duplicate results
 

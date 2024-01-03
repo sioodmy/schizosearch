@@ -7,6 +7,7 @@ use tokio::try_join;
 mod brave;
 mod duckduckgo;
 pub mod img;
+mod tests;
 
 #[derive(Deserialize, Debug)]
 pub struct SearchQuery {
