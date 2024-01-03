@@ -19,8 +19,10 @@ mod tests {
     use crate::search::brave::brave;
     use crate::search::duckduckgo::duckduckgo;
     use crate::search::img::qwant;
+    use crate::search::vids::indivious;
 
     test_engine!(qwant);
     test_engine!(duckduckgo);
     test_engine!(brave);
+    test_engine!(indivious);
 }

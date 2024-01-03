@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+{% let (style_sheet, class_name) = turf::inline_style_sheet!("style/results.scss") %}
+
+{% include "navbar.html" %}
+
+<main>
+  {% if results.len() > 0 -%}
+  {% for result in results %}
+  <div class="{{ class_name.result }}">
+    <a href="{{ result.link}}">
+    <img src="{{ result.thumbnail }}" alt="{{ result.title }}" />
+      <div>
+      {{ result.link }}
+      <h2>{{ result.title }}</h2>
+      </div>
+    </a>
+  </div>
+
+  {% endfor %}
+  {% else -%}
+    <h1>Couldn't find any results :( </h1>
+  {%- endif %}
+</main>
+<style>
+  {{ style_sheet}}
+</style>
+{% endblock %}

@@ -8,6 +8,7 @@ mod brave;
 mod duckduckgo;
 pub mod img;
 mod tests;
+pub mod vids;
 
 #[derive(Deserialize, Debug)]
 pub struct SearchQuery {
