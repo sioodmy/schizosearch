@@ -1,0 +1,17 @@
+main {
+  display: flex;
+  flex-wrap: wrap;
+  grid-gap: 1.5rem;
+  justify-items: center;
+  margin-left: 9%;
+  margin-right: 9%;
+  padding: 0;
+  margin-bottom: 50px;
+  img {
+    margin: 0px;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    vertical-align: bottom;
+  }
+}

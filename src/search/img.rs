@@ -1,71 +1,53 @@
 use anyhow::Result;
 use askama::Template;
 use axum::{debug_handler, response::IntoResponse, Form};
-use schizosearch::{yoink, HtmlTemplate, USERAGENT};
-use scraper::{Html, Selector};
+use schizosearch::{fetch, HtmlTemplate};
+use serde_json::Value;
 
 use super::SearchQuery;
 
-struct ResultImage {
-    alt: String,
-    image_url: String,
+#[derive(Debug)]
+pub struct ResultImage {
+    pub alt: String,
+    pub image_url: String,
+    pub link: String,
 }
 
 #[derive(Template)]
 #[template(path = "img.html")]
-struct ImagesPage {
-    query: String,
-    results: Vec<ResultImage>,
+pub struct ImagesPage {
+    pub query: String,
+    pub results: Vec<ResultImage>,
 }
 
 #[debug_handler]
-pub async fn search(Form(query): Form<SearchQuery>) -> impl IntoResponse {
-    let mut results = Vec::new();
+pub async fn img_search(Form(query): Form<SearchQuery>) -> impl IntoResponse {
     let query = query.q;
+    let results = qwant(&query).await.unwrap();
     let page = ImagesPage { query, results };
     HtmlTemplate(page)
 }
-pub async fn brave<'a>(query: &'a str) -> Result<Vec<ResultHtml>> {
-    let client = reqwest::Client::new();
+pub async fn qwant(query: &str) -> Result<Vec<ResultImage>> {
+    let json = fetch!("https://api.qwant.com/v3/search/images?q={}&t=images&count=50&locale=en_us&offset=0&device=desktop&tgp=3&safesearch=1", query);
 
-    let url = format!(
-        "https://search.brave.com/search?q={}&nfpr=1&spellcheck=0",
-        query
-    );
-    let resp = yoink(url);
+    let data: Value = serde_json::from_str(&json)?;
 
-    let html = resp.text().await?;
-    let fragment = Html::parse_document(&html);
-    let selector = Selector::parse("div.snippet").unwrap();
-    let mut results = Vec::new();
-    for result in fragment.select(&selector) {
-        // TODO async
-        let selector = Selector::parse("a.h").unwrap();
-        let Some(element) = result.select(&selector).next() else {
-            continue;
-        };
-        let Some(link) = element.value().attr("href") else {
-            continue;
-        };
-
-        let title_selector = Selector::parse("div.heading-serpresult").unwrap();
-        let desc_selector = Selector::parse("div.snippet-description").unwrap();
-        let Some(title_element) = element.select(&title_selector).next() else {
-            continue;
-        };
-        let Some(desc_element) = result.select(&desc_selector).next() else {
-            continue;
-        };
-
-        let title = title_element.text().collect::<Vec<_>>().join("");
-        let description = desc_element.text().collect::<Vec<_>>().join("");
-
-        results.push(ResultHtml {
-            title,
-            link: link.to_owned(),
-            description,
-        });
-    }
+    // FIXME: holy fucking shit
+    let results: Vec<ResultImage> = data["data"]["result"]["items"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .map(|f| ResultImage {
+            alt: f.get("title").unwrap().as_str().unwrap().to_owned(),
+            image_url: f.get("media_preview").unwrap().as_str().unwrap().to_owned(),
+            link: f
+                .get("media_fullsize")
+                .unwrap()
+                .as_str()
+                .unwrap()
+                .to_owned(),
+        })
+        .collect();
 
     Ok(results)
 }

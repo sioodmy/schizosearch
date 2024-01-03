@@ -1,3 +1,4 @@
+use crate::search::img::img_search;
 use axum::{routing::get, Router};
 use clap::Parser;
 use tracing_subscriber::{layer::SubscriberExt, util::SubscriberInitExt};
@@ -21,7 +22,8 @@ async fn main() {
         .init();
     let app = Router::new()
         .route("/", get(home::homepage))
-        .route("/search", get(search::search));
+        .route("/search", get(search::search))
+        .route("/img", get(img_search));
 
     let listener = tokio::net::TcpListener::bind(cli.listener).await.unwrap();
 

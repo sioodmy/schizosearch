@@ -1,11 +1,11 @@
 use anyhow::Result;
-use schizosearch::get_html;
+use schizosearch::fetch;
 use scraper::{Html, Selector};
 
 use super::ResultHtml;
 
-pub async fn duckduckgo<'a>(query: &'a str) -> Result<Vec<ResultHtml>> {
-    let html = get_html!("https://html.duckduckgo.com/html/?q={}&kd=-1", query);
+pub async fn duckduckgo(query: &str) -> Result<Vec<ResultHtml>> {
+    let html = fetch!("https://html.duckduckgo.com/html/?q={}&kd=-1", query);
     let fragment = Html::parse_document(&html);
     let selector = Selector::parse("div.web-result").unwrap();
     let mut results = Vec::new();

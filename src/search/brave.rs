@@ -1,11 +1,11 @@
 use anyhow::Result;
-use schizosearch::get_html;
+use schizosearch::fetch;
 use scraper::{Html, Selector};
 
 use super::ResultHtml;
 
-pub async fn brave<'a>(query: &'a str) -> Result<Vec<ResultHtml>> {
-    let html = get_html!(
+pub async fn brave(query: &str) -> Result<Vec<ResultHtml>> {
+    let html = fetch!(
         "https://search.brave.com/search?q={}&nfpr=1&spellcheck=0",
         query
     );

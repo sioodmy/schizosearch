@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+
+{% let (style_sheet, class_name) = turf::inline_style_sheet!("style/img.scss") %}
+
+{% include "navbar.html" %}
+
+<main>
+  {% for result in results %}
+  <a href="{{ result.link}}">
+    <img src="{{ result.image_url}}" alt="{{ result.alt }}" target="_blank" />
+  </a>
+
+  {% endfor %}
+</main>
+<style>
+  {{ style_sheet }}
+</style>
+
+{% endblock %}

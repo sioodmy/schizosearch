@@ -7,7 +7,7 @@ use axum::{
 pub struct HtmlTemplate<T>(pub T);
 
 #[macro_export]
-macro_rules! get_html {
+macro_rules! fetch {
     ($url:literal, $q:ident) => {
 
     reqwest::Client::new()
