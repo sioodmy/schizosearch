@@ -7,6 +7,7 @@
 {% include "navbar.html" %}
 
 <main>
+  {% if results.len() > 0 -%}
   {% for result in results %}
   <div class="{{ class_name.result }}">
     <a href="{{ result.link}}">
@@ -17,6 +18,9 @@
   </div>
 
   {% endfor %}
+  {% else -%}
+    <h1>Couldn't find any results :( </h1>
+  {%- endif %}
 </main>
 <style>
   {{ style_sheet}}
