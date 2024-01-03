@@ -1,4 +1,4 @@
-use anyhow::{anyhow, Error, Result};
+use anyhow::{anyhow, Result};
 use askama::Template;
 use axum::{debug_handler, response::IntoResponse, Form};
 use schizosearch::{fetch, HtmlTemplate};

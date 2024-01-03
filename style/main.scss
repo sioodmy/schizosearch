@@ -20,3 +20,15 @@ input {
 input:focus {
   outline: none;
 }
+
+a {
+  color: $text;
+  text-decoration: none;
+}
+
+footer {
+  width: 100%;
+  text-align: center;
+  padding: 15px;
+  background: $navbar;
+}
