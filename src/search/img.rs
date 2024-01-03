@@ -1,4 +1,4 @@
-use anyhow::Result;
+use anyhow::{anyhow, Error, Result};
 use askama::Template;
 use axum::{debug_handler, response::IntoResponse, Form};
 use schizosearch::{fetch, HtmlTemplate};
@@ -33,21 +33,22 @@ pub async fn qwant(query: &str) -> Result<Vec<ResultImage>> {
     let data: Value = serde_json::from_str(&json)?;
 
     // FIXME: holy fucking shit
-    let results: Vec<ResultImage> = data["data"]["result"]["items"]
-        .as_array()
-        .unwrap()
-        .iter()
-        .map(|f| ResultImage {
-            alt: f.get("title").unwrap().as_str().unwrap().to_owned(),
-            image_url: f.get("media_preview").unwrap().as_str().unwrap().to_owned(),
-            link: f
-                .get("media_fullsize")
-                .unwrap()
-                .as_str()
-                .unwrap()
-                .to_owned(),
-        })
-        .collect();
-
-    Ok(results)
+    if let Some(results) = data["data"]["result"]["items"].as_array() {
+        let results = results
+            .iter()
+            .map(|f| ResultImage {
+                alt: f.get("title").unwrap().as_str().unwrap().to_owned(),
+                image_url: f.get("media_preview").unwrap().as_str().unwrap().to_owned(),
+                link: f
+                    .get("media_fullsize")
+                    .unwrap()
+                    .as_str()
+                    .unwrap()
+                    .to_owned(),
+            })
+            .collect();
+        Ok(results)
+    } else {
+        Err(anyhow!("Failed to parse qwant data"))
+    }
 }

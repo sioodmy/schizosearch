@@ -14,13 +14,14 @@ Code base is constantly changing and its full of temporary place holders and
 hacky workarounds.
 
 # TODO
-- [ ] image results
+- [x] image results
 - [ ] tor
 - [ ] nixos module
 - [ ] docker container
 - [ ] theming using parameters
 - [ ] use macros, DRY, code refactor
 - [ ] remove all placeholders
+- [ ] handle duplicate results
 
 engines
   - [x] duckduckgo
