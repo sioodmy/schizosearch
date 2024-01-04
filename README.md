@@ -23,6 +23,7 @@ hacky workarounds.
 - [x] unit testing
 - [ ] remove all placeholders
 - [ ] handle duplicate results
+- [ ] use hashmap for results
 
 engines
   - [x] duckduckgo
