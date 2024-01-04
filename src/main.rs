@@ -1,5 +1,5 @@
-use crate::search::img::img_search;
-use crate::search::vids::vids_search;
+use crate::home::homepage;
+use crate::search::{img_search, search, vids_search};
 use axum::{routing::get, Router};
 use clap::Parser;
 use tracing_subscriber::{layer::SubscriberExt, util::SubscriberInitExt};
@@ -17,13 +17,13 @@ async fn main() {
     tracing_subscriber::registry()
         .with(
             tracing_subscriber::EnvFilter::try_from_default_env()
-                .unwrap_or_else(|_| "example_form=debug".into()),
+                .unwrap_or_else(|_| "schizosearch=info".into()),
         )
         .with(tracing_subscriber::fmt::layer())
         .init();
     let app = Router::new()
-        .route("/", get(home::homepage))
-        .route("/search", get(search::search))
+        .route("/", get(homepage))
+        .route("/search", get(search))
         .route("/img", get(img_search))
         .route("/vids", get(vids_search));
 

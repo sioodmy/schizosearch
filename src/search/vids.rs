@@ -1,10 +1,9 @@
 use anyhow::{anyhow, Result};
-use askama::Template;
 use axum::{debug_handler, response::IntoResponse, Form};
 use schizosearch::{fetch, HtmlTemplate};
 use serde_json::Value;
 
-use super::SearchQuery;
+use super::{ResultPage, SearchQuery};
 
 #[derive(Debug)]
 pub struct ResultVideo {
@@ -13,18 +12,11 @@ pub struct ResultVideo {
     pub thumbnail: String,
 }
 
-#[derive(Template)]
-#[template(path = "vids.html")]
-pub struct VideosPage {
-    pub query: String,
-    pub results: Vec<ResultVideo>,
-}
-
 #[debug_handler]
 pub async fn vids_search(Form(query): Form<SearchQuery>) -> impl IntoResponse {
     let query = query.q;
     let results = indivious(&query).await.unwrap();
-    let page = VideosPage { query, results };
+    let page = ResultPage::Videos { query, results };
     HtmlTemplate(page)
 }
 

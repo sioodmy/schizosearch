@@ -1,8 +1,11 @@
-use askama::Template;
+use askama_enum::EnumTemplate;
 use axum::{debug_handler, response::IntoResponse, Form};
 use schizosearch::HtmlTemplate;
 use serde::Deserialize;
 use tokio::try_join;
+
+pub use img::img_search;
+pub use vids::vids_search;
 
 mod brave;
 mod duckduckgo;
@@ -15,16 +18,30 @@ pub struct SearchQuery {
     pub q: String,
 }
 
-struct ResultHtml {
-    title: String,
-    link: String,
-    description: String,
+#[derive(Debug)]
+pub struct ResultHtml {
+    pub title: String,
+    pub link: String,
+    pub description: String,
 }
-#[derive(Template)]
-#[template(path = "results.html")]
-struct ResultsPage {
-    query: String,
-    results: Vec<ResultHtml>,
+
+#[derive(EnumTemplate)]
+pub enum ResultPage {
+    #[template(path = "results.html")]
+    General {
+        query: String,
+        results: Vec<ResultHtml>,
+    },
+    #[template(path = "img.html")]
+    Images {
+        query: String,
+        results: Vec<img::ResultImage>,
+    },
+    #[template(path = "vids.html")]
+    Videos {
+        query: String,
+        results: Vec<vids::ResultVideo>,
+    },
 }
 
 #[debug_handler]
@@ -38,6 +55,6 @@ pub async fn search(Form(query): Form<SearchQuery>) -> impl IntoResponse {
     } else {
         panic!("TODO: find a better way of handling this");
     }
-    let page = ResultsPage { query, results };
+    let page = ResultPage::General { query, results };
     HtmlTemplate(page)
 }

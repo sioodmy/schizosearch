@@ -1,10 +1,9 @@
 use anyhow::{anyhow, Result};
-use askama::Template;
 use axum::{debug_handler, response::IntoResponse, Form};
 use schizosearch::{fetch, HtmlTemplate};
 use serde_json::Value;
 
-use super::SearchQuery;
+use super::{ResultPage, SearchQuery};
 
 #[derive(Debug)]
 pub struct ResultImage {
@@ -13,18 +12,11 @@ pub struct ResultImage {
     pub link: String,
 }
 
-#[derive(Template)]
-#[template(path = "img.html")]
-pub struct ImagesPage {
-    pub query: String,
-    pub results: Vec<ResultImage>,
-}
-
 #[debug_handler]
 pub async fn img_search(Form(query): Form<SearchQuery>) -> impl IntoResponse {
     let query = query.q;
     let results = qwant(&query).await.unwrap();
-    let page = ImagesPage { query, results };
+    let page = ResultPage::Images { query, results };
     HtmlTemplate(page)
 }
 pub async fn qwant(query: &str) -> Result<Vec<ResultImage>> {
