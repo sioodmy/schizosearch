@@ -32,5 +32,4 @@ engines
   - [ ] yandex
   - [x] qwant
   - [ ] 1337x.to
-
- 
+  - [ ] sourcegraph 
