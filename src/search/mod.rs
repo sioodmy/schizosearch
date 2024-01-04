@@ -26,6 +26,20 @@ pub struct ResultHtml {
     pub description: String,
 }
 
+#[derive(Debug)]
+pub struct ResultImage {
+    pub alt: String,
+    pub image_url: String,
+    pub link: String,
+}
+
+#[derive(Debug)]
+pub struct ResultVideo {
+    pub title: String,
+    pub link: String,
+    pub thumbnail: String,
+}
+
 #[derive(EnumTemplate)]
 pub enum ResultPage {
     #[template(path = "results.html")]
@@ -35,12 +49,12 @@ pub enum ResultPage {
     },
     #[template(path = "img.html")]
     Images {
-        results: Vec<img::ResultImage>,
+        results: Vec<ResultImage>,
         query: String,
     },
     #[template(path = "vids.html")]
     Videos {
-        results: Vec<vids::ResultVideo>,
+        results: Vec<ResultVideo>,
         query: String,
     },
 }

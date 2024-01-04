@@ -2,12 +2,7 @@ use anyhow::{anyhow, Result};
 use schizosearch::fetch;
 use serde_json::Value;
 
-#[derive(Debug)]
-pub struct ResultVideo {
-    pub title: String,
-    pub link: String,
-    pub thumbnail: String,
-}
+use super::ResultVideo;
 
 pub async fn indivious(query: &str) -> Result<Vec<ResultVideo>> {
     let json = fetch!(

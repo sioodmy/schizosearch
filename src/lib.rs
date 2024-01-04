@@ -12,6 +12,7 @@ macro_rules! fetch {
 
     reqwest::Client::new()
         .get(&format!($url, $q))
+        .timeout(std::time::Duration::from_millis(1700))
         .header("User-Agent", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36")
         .send()
         .await?.text().await?

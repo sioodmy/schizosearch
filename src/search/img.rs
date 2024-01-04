@@ -2,12 +2,7 @@ use anyhow::{anyhow, Result};
 use schizosearch::fetch;
 use serde_json::Value;
 
-#[derive(Debug)]
-pub struct ResultImage {
-    pub alt: String,
-    pub image_url: String,
-    pub link: String,
-}
+use super::ResultImage;
 
 pub async fn qwant(query: &str) -> Result<Vec<ResultImage>> {
     let json = fetch!("https://api.qwant.com/v3/search/images?q={}&t=images&count=50&locale=en_us&offset=0&device=desktop&tgp=3&safesearch=1", query);
