@@ -1,9 +1,6 @@
 use anyhow::{anyhow, Result};
-use axum::{debug_handler, response::IntoResponse, Form};
-use schizosearch::{fetch, HtmlTemplate};
+use schizosearch::fetch;
 use serde_json::Value;
-
-use super::{ResultPage, SearchQuery};
 
 #[derive(Debug)]
 pub struct ResultImage {
@@ -12,13 +9,6 @@ pub struct ResultImage {
     pub link: String,
 }
 
-#[debug_handler]
-pub async fn img_search(Form(query): Form<SearchQuery>) -> impl IntoResponse {
-    let query = query.q;
-    let results = qwant(&query).await.unwrap();
-    let page = ResultPage::Images { query, results };
-    HtmlTemplate(page)
-}
 pub async fn qwant(query: &str) -> Result<Vec<ResultImage>> {
     let json = fetch!("https://api.qwant.com/v3/search/images?q={}&t=images&count=50&locale=en_us&offset=0&device=desktop&tgp=3&safesearch=1", query);
 

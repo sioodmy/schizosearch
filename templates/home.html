@@ -3,17 +3,17 @@
 {% block content %}
 {% let (style_sheet, class_name) = turf::inline_style_sheet!("style/home.scss") %}
 <div>
-<main>
-  <div class="{{ class_name.title }}">
-    <h1><span>SchizoSearch</span> :3</h1>
-    <span> {{ splash }} </span>
-  </div>
-  <form action="/search" method="get">
-    <input type="text" name="q" autofocus>
-  </form>
-</main>
+  <main>
+    <div class="{{ class_name.title }}">
+      <h1><span>SchizoSearch</span> :3</h1>
+      <span> {{ splash }} </span>
+    </div>
+    <form action="/search" method="get">
+      <input type="text" name="q" autofocus>
+    </form>
+  </main>
 </div>
 <style>
-{{ style_sheet }}
+  {{ style_sheet }}
 </style>
 {% endblock %}

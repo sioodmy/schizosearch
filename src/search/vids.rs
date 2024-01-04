@@ -1,23 +1,12 @@
 use anyhow::{anyhow, Result};
-use axum::{debug_handler, response::IntoResponse, Form};
-use schizosearch::{fetch, HtmlTemplate};
+use schizosearch::fetch;
 use serde_json::Value;
-
-use super::{ResultPage, SearchQuery};
 
 #[derive(Debug)]
 pub struct ResultVideo {
     pub title: String,
     pub link: String,
     pub thumbnail: String,
-}
-
-#[debug_handler]
-pub async fn vids_search(Form(query): Form<SearchQuery>) -> impl IntoResponse {
-    let query = query.q;
-    let results = indivious(&query).await.unwrap();
-    let page = ResultPage::Videos { query, results };
-    HtmlTemplate(page)
 }
 
 pub async fn indivious(query: &str) -> Result<Vec<ResultVideo>> {

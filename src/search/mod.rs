@@ -4,8 +4,7 @@ use schizosearch::HtmlTemplate;
 use serde::Deserialize;
 use tokio::try_join;
 
-pub use img::img_search;
-pub use vids::vids_search;
+use self::{img::qwant, vids::indivious};
 
 mod brave;
 mod duckduckgo;
@@ -14,8 +13,10 @@ mod tests;
 pub mod vids;
 
 #[derive(Deserialize, Debug)]
-pub struct SearchQuery {
+pub struct Parameters {
     pub q: String,
+    #[serde(default = "default_type")]
+    pub t: String,
 }
 
 #[derive(Debug)]
@@ -29,32 +30,51 @@ pub struct ResultHtml {
 pub enum ResultPage {
     #[template(path = "results.html")]
     General {
-        query: String,
         results: Vec<ResultHtml>,
+        query: String,
     },
     #[template(path = "img.html")]
     Images {
-        query: String,
         results: Vec<img::ResultImage>,
+        query: String,
     },
     #[template(path = "vids.html")]
     Videos {
-        query: String,
         results: Vec<vids::ResultVideo>,
+        query: String,
     },
 }
 
 #[debug_handler]
-pub async fn search(Form(query): Form<SearchQuery>) -> impl IntoResponse {
+pub async fn search(Form(params): Form<Parameters>) -> impl IntoResponse {
     let mut results = Vec::new();
-    let query = query.q;
-    if let Ok((brave, duckduckgo)) = try_join!(brave::brave(&query), duckduckgo::duckduckgo(&query))
-    {
-        results.extend(brave);
-        results.extend(duckduckgo);
-    } else {
-        panic!("TODO: find a better way of handling this");
-    }
-    let page = ResultPage::General { query, results };
+    let query = params.q;
+    let page = match params.t.as_str() {
+        "img" => ResultPage::Images {
+            results: qwant(&query).await.unwrap(),
+            query,
+        },
+        "vid" => ResultPage::Videos {
+            results: indivious(&query).await.unwrap(),
+            query,
+        },
+
+        "general" => {
+            if let Ok((brave, duckduckgo)) =
+                try_join!(brave::brave(&query), duckduckgo::duckduckgo(&query))
+            {
+                results.extend(brave);
+                results.extend(duckduckgo);
+            } else {
+                panic!("TODO: find a better way of handling this");
+            }
+            ResultPage::General { query, results }
+        }
+        _ => todo!("Error page"),
+    };
     HtmlTemplate(page)
+}
+
+fn default_type() -> String {
+    "general".to_string()
 }

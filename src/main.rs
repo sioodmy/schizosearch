@@ -1,5 +1,5 @@
 use crate::home::homepage;
-use crate::search::{img_search, search, vids_search};
+use crate::search::search;
 use axum::{routing::get, Router};
 use clap::Parser;
 use tracing_subscriber::{layer::SubscriberExt, util::SubscriberInitExt};
@@ -23,9 +23,7 @@ async fn main() {
         .init();
     let app = Router::new()
         .route("/", get(homepage))
-        .route("/search", get(search))
-        .route("/img", get(img_search))
-        .route("/vids", get(vids_search));
+        .route("/search", get(search));
 
     let listener = tokio::net::TcpListener::bind(cli.listener).await.unwrap();
 
