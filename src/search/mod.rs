@@ -2,7 +2,7 @@ use askama_enum::EnumTemplate;
 use axum::{debug_handler, response::IntoResponse, Form};
 use schizosearch::HtmlTemplate;
 use serde::Deserialize;
-use tokio::try_join;
+use tokio::join;
 
 use self::{img::qwant, vids::indivious};
 
@@ -74,13 +74,12 @@ pub async fn search(Form(params): Form<Parameters>) -> impl IntoResponse {
         },
 
         "general" => {
-            if let Ok((brave, duckduckgo)) =
-                try_join!(brave::brave(&query), duckduckgo::duckduckgo(&query))
-            {
+            let (brave, duckduckgo) = join!(brave::brave(&query), duckduckgo::duckduckgo(&query));
+            if let Ok(brave) = brave {
                 results.extend(brave);
+            }
+            if let Ok(duckduckgo) = duckduckgo {
                 results.extend(duckduckgo);
-            } else {
-                panic!("TODO: find a better way of handling this");
             }
             ResultPage::General { query, results }
         }
