@@ -22,8 +22,9 @@ hacky workarounds.
 - [ ] use macros, DRY, code refactor
 - [x] unit testing
 - [ ] remove all placeholders
-- [ ] handle duplicate results
-- [ ] use hashmap for results
+- [x] handle duplicate results
+- [x] use hashmap for results
+- [x] convert unfree garbage to libre alternatives
 
 engines
   - [x] duckduckgo
