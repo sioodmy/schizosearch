@@ -58,6 +58,9 @@
               inputs.fenix.packages.${system}.complete.toolchain
               clippy
               rustc
+              cargo-bloat
+              cargo-watch
+              cargo-audit
             ]
             ++ libs;
 
