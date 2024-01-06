@@ -1,3 +1,5 @@
+use std::sync::mpsc::channel;
+
 use askama_enum::EnumTemplate;
 use axum::{debug_handler, response::IntoResponse, Form};
 use scc::HashMap;
@@ -5,7 +7,7 @@ use schizosearch::HtmlTemplate;
 use serde::Deserialize;
 use tokio::join;
 
-use self::{img::qwant, libre::libre, vids::indivious};
+use self::{img::qwant, libre::libre, special::SpecialResult, vids::indivious};
 
 mod brave;
 mod duckduckgo;
@@ -84,7 +86,9 @@ pub async fn search(Form(params): Form<Parameters>) -> impl IntoResponse {
 
         "general" => {
             let map: ResultsMap = HashMap::default();
+            let (tx, rx) = channel::<Option<SpecialResult>>();
             let _ = join!(
+                special::special(&query, tx),
                 brave::brave(&query, &map),
                 duckduckgo::duckduckgo(&query, &map)
             );
@@ -97,6 +101,9 @@ pub async fn search(Form(params): Form<Parameters>) -> impl IntoResponse {
                 });
                 false
             });
+            for special in rx.into_iter() {
+                println!("{:?}", special);
+            }
             ResultPage::General { query, results }
         }
         _ => todo!("Error page"),
