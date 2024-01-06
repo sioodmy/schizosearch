@@ -1,14 +1,17 @@
 use askama_enum::EnumTemplate;
 use axum::{debug_handler, response::IntoResponse, Form};
+use scc::HashMap;
 use schizosearch::HtmlTemplate;
 use serde::Deserialize;
 use tokio::join;
 
-use self::{img::qwant, vids::indivious};
+use self::{img::qwant, libre::libre, vids::indivious};
 
 mod brave;
 mod duckduckgo;
 pub mod img;
+mod libre;
+mod special;
 mod tests;
 pub mod vids;
 
@@ -23,6 +26,13 @@ pub struct Parameters {
 pub struct ResultHtml {
     pub title: String,
     pub link: String,
+    pub description: String,
+}
+
+pub type ResultsMap = HashMap<String, ResultGeneralData>;
+#[derive(Debug)]
+pub struct ResultGeneralData {
+    pub title: String,
     pub description: String,
 }
 
@@ -61,7 +71,6 @@ pub enum ResultPage {
 
 #[debug_handler]
 pub async fn search(Form(params): Form<Parameters>) -> impl IntoResponse {
-    let mut results = Vec::new();
     let query = params.q;
     let page = match params.t.as_str() {
         "img" => ResultPage::Images {
@@ -74,13 +83,20 @@ pub async fn search(Form(params): Form<Parameters>) -> impl IntoResponse {
         },
 
         "general" => {
-            let (brave, duckduckgo) = join!(brave::brave(&query), duckduckgo::duckduckgo(&query));
-            if let Ok(brave) = brave {
-                results.extend(brave);
-            }
-            if let Ok(duckduckgo) = duckduckgo {
-                results.extend(duckduckgo);
-            }
+            let map: ResultsMap = HashMap::default();
+            let _ = join!(
+                brave::brave(&query, &map),
+                duckduckgo::duckduckgo(&query, &map)
+            );
+            let mut results = Vec::new();
+            map.retain(|url, data| {
+                results.push(ResultHtml {
+                    title: data.title.clone(),
+                    link: libre(url.clone()),
+                    description: data.description.clone(),
+                });
+                false
+            });
             ResultPage::General { query, results }
         }
         _ => todo!("Error page"),

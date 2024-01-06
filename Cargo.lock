@@ -304,6 +304,12 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "a2bd12c1caf447e69cd4528f47f94d203fd2582878ecb9e9465484c4148a8223"
 
 [[package]]
+name = "calculator-rs"
+version = "0.1.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "c8338e12e09bf5bd17a9c7fd54bc402b0b234f6b8e2cf21a4ed54e11c3e74be8"
+
+[[package]]
 name = "cc"
 version = "1.0.83"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1654,6 +1660,12 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "f98d2aa92eebf49b69786be48e4477826b256916e84a57ff2a4f21923b48eb4c"
 
 [[package]]
+name = "scc"
+version = "2.0.8"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "426f7396cff4490b7410c25165f278eeab9e4209c5ae5269712f3ba99c29270d"
+
+[[package]]
 name = "schannel"
 version = "0.1.23"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1670,11 +1682,13 @@ dependencies = [
  "askama",
  "askama-enum",
  "axum",
+ "calculator-rs",
  "clap",
  "lazy_static",
  "paste",
  "rand",
  "reqwest",
+ "scc",
  "scraper",
  "serde",
  "serde_json",

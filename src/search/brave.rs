@@ -2,16 +2,15 @@ use anyhow::Result;
 use schizosearch::fetch;
 use scraper::{Html, Selector};
 
-use super::ResultHtml;
+use super::ResultsMap;
 
-pub async fn brave(query: &str) -> Result<Vec<ResultHtml>> {
+pub async fn brave(query: &str, map: &ResultsMap) -> Result<()> {
     let html = fetch!(
         "https://search.brave.com/search?q={}&nfpr=1&spellcheck=0",
         query
     );
     let fragment = Html::parse_document(&html);
     let selector = Selector::parse("div.snippet").unwrap();
-    let mut results = Vec::new();
     for result in fragment.select(&selector) {
         // TODO async
         let selector = Selector::parse("a.h").unwrap();
@@ -34,12 +33,11 @@ pub async fn brave(query: &str) -> Result<Vec<ResultHtml>> {
         let title = title_element.text().collect::<Vec<_>>().join("");
         let description = desc_element.text().collect::<Vec<_>>().join("");
 
-        results.push(ResultHtml {
-            title,
-            link: link.to_owned(),
-            description,
-        });
+        let _ = map.insert(
+            link.to_owned(),
+            super::ResultGeneralData { title, description },
+        );
     }
 
-    Ok(results)
+    Ok(())
 }

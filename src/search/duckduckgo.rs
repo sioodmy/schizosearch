@@ -2,13 +2,12 @@ use anyhow::Result;
 use schizosearch::fetch;
 use scraper::{Html, Selector};
 
-use super::ResultHtml;
+use super::ResultsMap;
 
-pub async fn duckduckgo(query: &str) -> Result<Vec<ResultHtml>> {
+pub async fn duckduckgo(query: &str, map: &ResultsMap) -> Result<()> {
     let html = fetch!("https://html.duckduckgo.com/html/?q={}&kd=-1", query);
     let fragment = Html::parse_document(&html);
     let selector = Selector::parse("div.web-result").unwrap();
-    let mut results = Vec::new();
     for result in fragment.select(&selector) {
         // TODO async
         let selector = Selector::parse("a.result__a").unwrap();
@@ -27,12 +26,11 @@ pub async fn duckduckgo(query: &str) -> Result<Vec<ResultHtml>> {
         let title = element.text().collect::<Vec<_>>().join("");
         let description = desc_element.text().collect::<Vec<_>>().join("");
 
-        results.push(ResultHtml {
-            title,
-            link: link.to_owned(),
-            description,
-        });
+        let _ = map.insert(
+            link.to_owned(),
+            super::ResultGeneralData { title, description },
+        );
     }
 
-    Ok(results)
+    Ok(())
 }
