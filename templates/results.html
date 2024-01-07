@@ -7,6 +7,15 @@
 {% include "navbar.html" %}
 
 <main>
+  {% match special  %}
+    {% when SpecialResult::Calculator with (val) %}
+      <h1>{{ val }} </h1>
+    {% when SpecialResult::Definition with (val) %}
+      <h1>{{ val }} </h1>
+    {% when SpecialResult::IpAddress with (val) %}
+      <h1>{{ val }} </h1>
+    {% when Empty %}   
+  {% endmatch %}
   {% if results.len() > 0 -%}
   {% for result in results %}
   <div class="{{ class_name.result }}">
@@ -19,10 +28,10 @@
 
   {% endfor %}
   {% else -%}
-    <h1>Couldn't find any results :( </h1>
+  <h1>Couldn't find any results :( </h1>
   {%- endif %}
 </main>
 <style>
-  {{ style_sheet}}
+{{ style_sheet }}
 </style>
 {% endblock %}

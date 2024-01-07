@@ -7,6 +7,7 @@ enum Alternative {
     Multiple(Vec<&'static str>),
 }
 
+//FIXME
 macro_rules! libre{
     ($unfree:literal to $($libre:literal),+) => {
         ($unfree, Alternative::Multiple(vec![$($libre),+]))

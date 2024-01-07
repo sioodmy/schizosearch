@@ -1,15 +1,12 @@
-use std::sync::mpsc::Sender;
 
 use calculator_rs::Calculate;
+use tokio::sync::mpsc::Sender;
 
 use super::SpecialResult;
 
-pub async fn calculator(query: &str, tx: Sender<Option<SpecialResult>>) {
-    match query.calculate() {
-        Ok(result) => {
+pub async fn calculator(query: &str, tx: Sender<SpecialResult>) {
+        if let Ok(result) = query.calculate(){
             let data = format!("{} = {}", &query, result);
-            tx.send(Some(SpecialResult::Calculator(data))).unwrap();
+            tx.send(SpecialResult::Calculator(data)).await.unwrap();
         }
-        Err(_) => tx.send(None).unwrap(),
-    }
 }

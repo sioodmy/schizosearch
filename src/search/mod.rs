@@ -1,11 +1,10 @@
-use std::sync::mpsc::channel;
 
 use askama_enum::EnumTemplate;
 use axum::{debug_handler, response::IntoResponse, Form};
 use scc::HashMap;
 use schizosearch::HtmlTemplate;
 use serde::Deserialize;
-use tokio::join;
+use tokio::{join, sync::mpsc::channel};
 
 use self::{img::qwant, libre::libre, special::SpecialResult, vids::indivious};
 
@@ -56,6 +55,7 @@ pub struct ResultVideo {
 pub enum ResultPage {
     #[template(path = "results.html")]
     General {
+        special: SpecialResult,
         results: Vec<ResultHtml>,
         query: String,
     },
@@ -86,7 +86,7 @@ pub async fn search(Form(params): Form<Parameters>) -> impl IntoResponse {
 
         "general" => {
             let map: ResultsMap = HashMap::default();
-            let (tx, rx) = channel::<Option<SpecialResult>>();
+            let (tx, mut rx) = channel::<SpecialResult>(1);
             let _ = join!(
                 special::special(&query, tx),
                 brave::brave(&query, &map),
@@ -101,10 +101,12 @@ pub async fn search(Form(params): Form<Parameters>) -> impl IntoResponse {
                 });
                 false
             });
-            for special in rx.into_iter() {
-                println!("{:?}", special);
-            }
-            ResultPage::General { query, results }
+            let special = if let Some(special_recv) = rx.recv().await {
+                special_recv
+            } else {
+                SpecialResult::Empty
+            };
+            ResultPage::General {special, query, results }
         }
         _ => todo!("Error page"),
     };
