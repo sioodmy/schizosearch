@@ -1,4 +1,3 @@
-
 use askama_enum::EnumTemplate;
 use axum::{debug_handler, response::IntoResponse, Form};
 use scc::HashMap;
@@ -106,7 +105,11 @@ pub async fn search(Form(params): Form<Parameters>) -> impl IntoResponse {
             } else {
                 SpecialResult::Empty
             };
-            ResultPage::General {special, query, results }
+            ResultPage::General {
+                special,
+                query,
+                results,
+            }
         }
         _ => todo!("Error page"),
     };

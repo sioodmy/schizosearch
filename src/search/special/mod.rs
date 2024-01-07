@@ -15,10 +15,10 @@ pub enum SpecialResult {
     IpAddress(String),
 }
 
-
 pub async fn special(query: &str, tx: Sender<SpecialResult>) {
-    let _ = join!(calculator(query, tx.clone()), definition(query, tx.clone()),
+    let _ = join!(
+        calculator(query, tx.clone()),
+        definition(query, tx.clone()),
         ip(query, tx.clone())
-    
     );
 }
