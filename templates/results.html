@@ -7,31 +7,39 @@
 {% include "navbar.html" %}
 
 <main>
-  {% match special  %}
-    {% when SpecialResult::Calculator with (val) %}
-      <h1>{{ val }} </h1>
-    {% when SpecialResult::Definition with (val) %}
-      <h1>{{ val }} </h1>
+  {% match special %}
+  {% when SpecialResult::Calculator with (val) %}
+  <h1>{{ val }} </h1>
+  {% when SpecialResult::Definition with {word, definitions, phonetic} %}
+  <div class="{{ class_name.special }}">
+  <h1>{{ word }} </h1>
+  <span class="{{ class_name.phonetic }}">{{ phonetic }}</h3>
+    <ul>
+      {% for meaning in definitions %}
+      <li>{{meaning}}</li>
+      {% endfor %}
+    </ul>
+    </div>
     {% when SpecialResult::IpAddress with (val) %}
-      <h1>{{ val }} </h1>
-    {% when Empty %}   
-  {% endmatch %}
-  {% if results.len() > 0 -%}
-  {% for result in results %}
-  <div class="{{ class_name.result }}">
-    <a href="{{ result.link}}">
-      {{ result.link }}
-      <h2>{{ result.title }}</h2>
-    </a>
-    <span> {{ result.description }} </span>
-  </div>
+    <h1>{{ val }} </h1>
+    {% when Empty %}
+    {% endmatch %}
+    {% if results.len() > 0 -%}
+    {% for result in results %}
+    <div class="{{ class_name.result }}">
+      <a href="{{ result.link}}">
+        {{ result.link }}
+        <h2>{{ result.title }}</h2>
+      </a>
+      <span> {{ result.description }} </span>
+    </div>
 
-  {% endfor %}
-  {% else -%}
-  <h1>Couldn't find any results :( </h1>
-  {%- endif %}
+    {% endfor %}
+    {% else -%}
+    <h1>Couldn't find any results :( </h1>
+    {%- endif %}
 </main>
 <style>
-{{ style_sheet }}
+{{style_sheet}}
 </style>
 {% endblock %}
