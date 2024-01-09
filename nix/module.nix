@@ -8,11 +8,16 @@ inputs: {
   cfg = config.services.schizosearch;
 
   package = inputs.self.packages.${system}.default;
-  inherit (lib) mkOption mkDefault mkEnableOption types mkIf;
+  inherit (lib) mkOption mkEnableOption types mkIf;
 in {
   options.services.schizosearch = {
-    enable = mkEnableOption "Schizofox meta search engine";
-    package = mkDefault package;
+    enable = mkEnableOption "Schizoserach meta search engine";
+    package = mkOption {
+      type = types.package;
+      default = package;
+      example = package;
+      description = "Schizosearch package";
+    };
     openFirewall = mkEnableOption "Open ports required for schizosearch";
 
     settings = {
@@ -23,7 +28,7 @@ in {
         description = "IP Address used for Schizoserach";
       };
       port = mkOption {
-        types = types.int;
+        type = types.int;
         default = 3000;
         example = 2137;
         description = "Port used for Schizosearch";
@@ -32,7 +37,7 @@ in {
   };
   config = mkIf cfg.enable {
     networking.firewall.allowedTCPPorts = [cfg.settings.port];
-    systemd.services.schizofox = {
+    systemd.services.schizosearch= {
       description = "Privacy friendly meta search engine";
       wantedBy = ["multi-user.target"];
       wants = ["network.target"];
@@ -42,7 +47,7 @@ in {
         "systemd-resolved.service"
       ];
       serviceConfig = {
-        ExecStart = ''${cfg.package}/bin/schizosearch --listener ${cfg.settings.addr}:${cfg.settings.port}'';
+        ExecStart = ''${cfg.package}/bin/schizosearch --listener ${cfg.settings.addr}:${builtins.toString cfg.settings.port}'';
         Restart = "always";
       };
     };

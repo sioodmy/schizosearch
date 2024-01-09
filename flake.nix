@@ -41,7 +41,6 @@
         ];
       in {
         formatter = pkgs.alejandra;
-        nixosModules.default = import ./nix/module.nix inputs;
 
         packages.default = let
           craneLib =
@@ -63,11 +62,17 @@
               cargo-bloat
               cargo-watch
               cargo-audit
+              # nix tools
+              deadnix
+              statix
             ]
             ++ libs;
 
           LD_LIBRARY_PATH = pkgs.lib.makeLibraryPath libs;
         };
+      };
+      flake = {
+        nixosModules.default = import ./nix/module.nix inputs;
       };
     };
 }
