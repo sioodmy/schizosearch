@@ -18,10 +18,13 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
   };
 
-  outputs = inputs @ {flake-parts, self, ...}:
+  outputs = inputs @ {
+    flake-parts,
+    self,
+    ...
+  }:
     flake-parts.lib.mkFlake {inherit inputs;} {
       systems = ["x86_64-linux" "aarch64-linux" "aarch64-darwin" "x86_64-darwin"];
       perSystem = {
@@ -38,6 +41,7 @@
         ];
       in {
         formatter = pkgs.alejandra;
+        nixosModules.default = import ./nix/module.nix inputs;
 
         packages.default = let
           craneLib =
@@ -49,8 +53,6 @@
             buildInputs = libs;
           };
 
-
-        
         devShells.default = pkgs.mkShell {
           RUST_LOG = "info";
           buildInputs = with pkgs;
