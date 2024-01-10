@@ -1,25 +1,33 @@
-# SchizoSearch[WIP]
-Minimal, privacy respecting search engine
+# Schizosearch
 
 <p align="center">
-  <img src="https://cdn.discordapp.com/attachments/961691461554950148/1191820589124559008/image.png" alt="screenshot 1" width="400">
-  <img src="https://cdn.discordapp.com/attachments/961691461554950148/1191820842758320218/image.png" alt="screenshot 2" width="400">
+  <img alt="GitHub Actions Workflow Status" src="https://img.shields.io/github/actions/workflow/status/sioodmy/schizosearch/rust.yml">
+  <img alt="GitHub Actions Workflow Status" src="https://img.shields.io/github/actions/workflow/status/sioodmy/schizosearch/check.yml?label=nix flake">
+  <img alt="GitHub Sponsors" src="https://img.shields.io/github/sponsors/sioodmy">
 </p>
   
+Minimal, privacy friendly meta search engine
 
-# Current state
-**DO NOT USE IT (yet)**
-Schizosearch is currently in super early development phase, I won't accept any PRs.
-Code base is constantly changing and its full of temporary place holders and 
-hacky workarounds.
+# Features 
+  - ❔ Your IP remains a secret to big tech search engines
+  - 👥 Results mixed with many others, making it harder to deanonymize you
+  - 💾 Zero logs
+  - ♻️ Results from some of the most popular indexes
+  - 📓 Special results
+  - 🐦 Zero Javascript policy, super lightweight frontend
+  - 🦀 Written in Rust
+  - ❄️ NixOS module for ease of deployment
+
+# Instances 
+(nothing yet)
+
+# Credits
+- [hnhx](github.com/hnhx)
 
 # TODO
 - [x] image results
 - [ ] tor
-- [ ] nixos module
-- [ ] docker container
-- [ ] theming using parameters
-- [ ] use macros, DRY, code refactor
+- [x] nixos module
 - [x] unit testing
 - [ ] remove all placeholders
 - [x] handle duplicate results
@@ -29,8 +37,14 @@ hacky workarounds.
 engines
   - [x] duckduckgo
   - [x] brave
-  - [ ] google
   - [ ] yandex
   - [x] qwant
   - [ ] 1337x.to
-  - [ ] sourcegraph 
+  - [ ] sourcegraph
+
+special results:
+  - [x] Calculator
+  - [x] Dictionary
+  - [ ] Wikipedia (wikiless)
+  - [ ] Brave snippets
+  - [ ] Stackoverflow 
