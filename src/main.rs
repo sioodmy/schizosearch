@@ -23,7 +23,19 @@ async fn main() {
         .init();
     let app = Router::new()
         .route("/", get(homepage))
-        .route("/search", get(search));
+        .route("/search", get(search))
+        .route(
+            "/lexend.ttf",
+            get(|| async {
+                (
+                    [
+                        ("Content-Type", "font/ttf"),
+                        ("Cache-Control", "max-age=31536000"),
+                    ],
+                    include_bytes!("../assets/lexend.ttf"),
+                )
+            }),
+        );
 
     let listener = tokio::net::TcpListener::bind(cli.listener).await.unwrap();
 
