@@ -19,7 +19,7 @@ Minimal, privacy friendly meta search engine
   - ❄️ NixOS module for ease of deployment
 
 # Instances 
-(nothing yet)
+- [search.sioodmy.dev (testing)](https://search.sioodmy.dev)
 
 # Credits
 - [hnhx](github.com/hnhx)
