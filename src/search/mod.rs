@@ -12,7 +12,6 @@ mod duckduckgo;
 pub mod img;
 mod libre;
 mod special;
-mod tests;
 pub mod vids;
 
 #[derive(Deserialize, Debug)]

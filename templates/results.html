@@ -9,14 +9,17 @@
 <main>
   {% match special %}
   {% when SpecialResult::Calculator with (val) %}
-  <h1>{{ val }} </h1>
+  <div class="{{ class_name.special }}">
+    <span>Calculator</span>
+    <h1 class="{{ class_name.calculator }}">{{ val }} </h1>
+  </div>
   {% when SpecialResult::Definition with {word, definitions, phonetic} %}
   <div class="{{ class_name.special }}">
   <h1>{{ word }} </h1>
   <span class="{{ class_name.phonetic }}">{{ phonetic }}</h3>
     <ul>
       {% for meaning in definitions %}
-      <li>{{meaning}}</li>
+        <li>{{meaning}}</li>
       {% endfor %}
     </ul>
     </div>
