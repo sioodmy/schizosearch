@@ -6,6 +6,11 @@
 .calculator {
   font-family: monospace;
 }
+@media only screen and (max-width: 900px) {
+  .special, .result {
+    width: 100%;
+  }
+}
 .special {
   background: $navbar;
   padding: 20px;
@@ -17,24 +22,26 @@
 .result {
   background: $result;
   padding: 20px;
-  width: 700px;
+  width: 90%;
   border-radius: 15px;
   margin-bottom: 20px;
-}
-.result a {
-  color: $link;
-  text-decoration: none;
-}
-
-.result a h2 {
-  color: $title;
+  a {
+    color: $link;
+    text-decoration: none;
+    h2 {
+      color: $title;
+    }
+  }
 }
 
 .buttons {
-  display:flex;
+  display: flex;
   justify-content: left;
   align-items: center;
   gap: 20px;
+  @media only screen and (max-width: 900) {
+    justify-content: center;
+  }
 }
 .button {
   font-weight: 600;
@@ -47,12 +54,15 @@
   justify-content: left;
   align-items: center;
   gap: 10px;
+  @media only screen and (max-width: 900) {
+    flex-direction: column;
+  }
 }
 nav {
   display: flex;
   background-color: $navbar;
   flex-direction: column;
-  width: 100%;
+  width: 100vw;
   padding: 10px;
   .logo {
     text-decoration: none;
