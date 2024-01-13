@@ -16,7 +16,6 @@ body {
 input {
   background: $input;
   color: $text;
-  width: 300px;
   height: 35px;
   padding-left: 15px;
   border: 1px solid $border;
@@ -33,7 +32,6 @@ a {
 }
 
 footer {
-  width: 100vw;
   padding: 15px;
   background: $navbar;
   text-align: center;

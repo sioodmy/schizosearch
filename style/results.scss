@@ -1,5 +1,6 @@
 @import "color"
  
+
 .phonetic {
   font-weight: 400;
 }
@@ -37,6 +38,7 @@
 .buttons {
   display: flex;
   justify-content: left;
+  margin-top: 5px;
   align-items: center;
   gap: 20px;
   @media only screen and (max-width: 900) {
@@ -71,6 +73,7 @@ nav {
   }
   input {
     display: flex;
+    width: 300px;
     height: 30px;
   }
 }

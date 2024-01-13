@@ -6,6 +6,9 @@ body {
   width: 100vw;
   height: 100vh;
 }
+main {
+  max-width: 90vw;
+}
 
 div {
   align-items: center;
@@ -18,10 +21,16 @@ div {
   flex-direction: column;
   margin-bottom: 25px;
   h1 {
+    @media only screen and (max-width: 900) {
+      font-size: 32px;
+    }
     font-size: 48px;
     margin-bottom: 5px;
     span{
       color: $logo;
     }
   }
+}
+input {
+  width: 100%;
 }
