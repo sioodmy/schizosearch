@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  {{define "head"}}
+  <title>SchizoSearch {{.Query}}</title>
+  <link rel="stylesheet" href="style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  {{end}}
+</head>
+
+<body>
+  {{define "header"}}
+  <header>
+    <nav>
+      <h1 class="logo">SchizoSearch <span>:3</span></h1>
+      <a href="/search?q={{.Query}}" class="{{if eq .Type 0}}selected{{end}}">General</a>
+      <a href="/search?q={{.Query}}&t=img" class="{{if eq .Type 1}}selected{{end}}">Images</a>
+
+    </nav>
+    <form action="/search" method="get">
+      <input type="text" name="q" placeholder="{{.Query}}" />
+    </form>
+  </header>
+  {{end}}
+
+
+  {{define "footer"}}
+  <footer>
+    sioodmy
+
+  </footer>
+
+  {{end}}
+
+</body>
+
+</html>

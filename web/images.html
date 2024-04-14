@@ -1,0 +1,25 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  {{template "head" .Header}}
+</head>
+
+<body>
+  {{template "header" .Header}}
+  <div class="gallery">
+    {{range .Results}}
+    <div class="pic">
+      <a href="{{ .Url }}">
+        <img src="{{ .Image }}" alt="{{ .Title }}" width="300" />
+        <b>{{ .Title }}</b>
+      </a>
+    </div>
+    {{else}}
+    no results :c
+    {{end}}
+  </div>
+
+</body>
+
+</html>

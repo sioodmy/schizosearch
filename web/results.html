@@ -1,0 +1,24 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  {{template "head" .Header}}
+</head>
+
+<body>
+  {{template "header" .Header}}
+  {{range .Results}}
+  <div class="result">
+    <a href="{{ .Url }}">
+      {{.Url}}
+      <h2>{{.Title}}</h2>
+    </a>
+    <span>{{.Snippet}}</span>
+  </div>
+  {{else}}
+  <h2 class="error">no results :c</h2>
+  {{end}}
+
+</body>
+
+</html>
