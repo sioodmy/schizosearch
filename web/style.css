@@ -8,19 +8,10 @@
 }
 
 .gallery {
-   max-width: 1200px;
-   margin-top: 1rem;
+  margin: 1rem;
   display: grid;
   gap: 1rem;
-}
-@media (min-width: 630px) {
-  .gallery { grid-template-columns: repeat(2, 1fr); }
-}
-@media (min-width: 900px) {
-  .gallery { grid-template-columns: repeat(3, 1fr); }
-}
-@media (min-width: 1200px) {
-  .gallery { grid-template-columns: repeat(4, 1fr); }
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
 }
 
 .pic {
@@ -72,6 +63,15 @@ header nav {
   display: flex;
   align-items: center;
   gap: 20px;
+}
+@media (max-width: 630px) {
+  nav {
+    flex-direction: column;
+  }
+  header input {
+    width: 100%;
+    margin-top: 1rem;
+  }
 }
 
 body {
