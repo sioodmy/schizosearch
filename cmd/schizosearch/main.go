@@ -7,7 +7,7 @@ import (
 )
 
 func main() {
-	file_server := http.FileServer(http.Dir("./web"))
+	file_server := http.FileServer(http.Dir("./app"))
 
 	http.Handle("/", file_server)
 	http.HandleFunc("/search", results.GetResults)
