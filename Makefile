@@ -1,5 +1,5 @@
 BINARY=schizosearch
-STYLEDIR=./web
+STYLEDIR=./web/theme
 
 build: styles
 	go build -o ./bin/${BINARY} cmd/schizosearch/main.go
@@ -15,4 +15,5 @@ run: build
 clean: 
 	go clean
 	rm bin/${BINARY}
+	rm web/theme/**.css.map
 	
