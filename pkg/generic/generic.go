@@ -2,8 +2,10 @@ package generic
 
 import (
 	"fmt"
-	"github.com/gocolly/colly"
 	"log"
+
+	"github.com/gocolly/colly"
+	"github.com/sioodmy/schizosearch/pkg/libreurl"
 )
 
 type GenericEngine struct {
@@ -33,6 +35,9 @@ func (s *GenericEngine) Search(query string) []GenericResult {
 		r.Title = e.ChildText(s.Title_selector)
 		r.Url = e.ChildAttr(s.Url_selector, "href")
 		r.Snippet = e.ChildText(s.Snippet_selector)
+
+		libreurl.LibreUrl(&r.Url)
+
 		// TODO: Find a better way of handling empty results
 		if len(r.Url) > 1 {
 			results = append(results, r)
