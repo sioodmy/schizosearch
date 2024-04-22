@@ -21,7 +21,15 @@ input {
   }
 }
 
-.logo span{
-  color: $pink;
+.logo {
+  text-decoration: none;
+  color: $text;
+  &:visited {
+    color: $text;
+  }
+  
+  span{
+    color: $pink;
+  }
 }
 
