@@ -32,7 +32,7 @@ type ImageResultPage struct {
 
 func GetResults(w http.ResponseWriter, r *http.Request) {
 
-	tpl, err := template.New("").ParseGlob("web/*.html")
+	tpl, err := template.New("").ParseGlob("web/templates/*.html")
 
 	if err != nil {
 		log.Fatalln("Template error ", err)
