@@ -1,0 +1,26 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  {{template "head" .Header}}
+</head>
+
+<body>
+  {{template "header" .Header}}
+  {{range .Results}}
+  <div class="result">
+    <a href="{{.Url}}">
+      via {{.Source}}
+      <h2>{{.Name}}</h2>
+    </a>
+    <span class="seeders">{{.Seeders}}</span>
+    <span class="leechers">{{.Leechers}}</span>
+    <span class="size">{{.Size}}</span>
+  </div>
+  {{else}}
+  <h2 class="error">no results :c</h2>
+  {{end}}
+
+</body>
+
+</html>

@@ -7,6 +7,7 @@ import (
 
 	"github.com/sioodmy/schizosearch/internal/genericsearch"
 	"github.com/sioodmy/schizosearch/internal/imagesearch"
+	"github.com/sioodmy/schizosearch/internal/leetx"
 	"github.com/sioodmy/schizosearch/pkg/generic"
 )
 
@@ -14,6 +15,14 @@ type Result struct {
 	Url     string
 	Title   string
 	Snippet string
+}
+type TorrentResult struct {
+	Name     string
+	Seeders  string
+	Leechers string
+	Magnet   string
+	Size     string
+	Source   string
 }
 
 type HeaderData struct {
@@ -28,6 +37,10 @@ type GenericResultPage struct {
 type ImageResultPage struct {
 	Header  HeaderData
 	Results [50]imagesearch.ImageResult
+}
+type TorrentResultPage struct {
+	Header  HeaderData
+	Results []leetx.TorrentResult
 }
 
 func GetResults(w http.ResponseWriter, r *http.Request) {
@@ -53,6 +66,18 @@ func GetResults(w http.ResponseWriter, r *http.Request) {
 			Results: data,
 		}
 		tpl.ExecuteTemplate(w, "images.html", &template_data)
+	case "torrent":
+
+		data := leetx.Search(q)
+
+		template_data := TorrentResultPage{
+			Header: HeaderData{
+				Query: q,
+				Type:  2,
+			},
+			Results: data,
+		}
+		tpl.ExecuteTemplate(w, "torrents.html", &template_data)
 	default:
 		data := search.Search(q)
 
