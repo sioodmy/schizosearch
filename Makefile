@@ -6,7 +6,6 @@ build: styles
 
 styles:
 	mkdir -p app
-	cp web/index.html app/index.html
 	sass ${STYLEDIR}/style.scss:app/style.css
 
 run: build
