@@ -1,24 +1,24 @@
 .gallery {
-  margin: 1rem;
-  display: grid;
-  gap: 1rem;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    margin: 1rem;
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
 }
 
 .pic {
-  padding: 1rem;
-  border: 1px solid var(--surface0);
-  border-radius: 10px;
-  overflow: hidden;
+    padding: 1rem;
+    border: 1px solid var(--surface0);
+    border-radius: 10px;
+    overflow: hidden;
 }
 pic a {
-  text-decoration: none;
-  display: flex;
-  flex-direction: column;
-  justify-items: center;
-  align-items: center;
-  color: var(--text);
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    align-items: center;
+    color: var(--text);
 }
 pic a img {
-  border-radius: 10px;
+    border-radius: 10px;
 }
