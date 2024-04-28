@@ -7,11 +7,15 @@
     treefmt-nix.url = "github:numtide/treefmt-nix";
   };
 
-  outputs = inputs@{ flake-parts, ... }:
-    flake-parts.lib.mkFlake { inherit inputs; } {
-      systems = [ "x86_64-linux" "aarch64-linux" "aarch64-darwin" "x86_64-darwin" ];
+  outputs = inputs @ {flake-parts, ...}:
+    flake-parts.lib.mkFlake {inherit inputs;} {
+      systems = ["x86_64-linux" "aarch64-linux" "aarch64-darwin" "x86_64-darwin"];
       imports = [inputs.treefmt-nix.flakeModule];
-      perSystem = { config, self', inputs', pkgs, system, ... }: {
+      perSystem = {
+        config,
+        pkgs,
+        ...
+      }: {
         packages = rec {
           schizosearch = pkgs.callPackage ./default.nix {};
           default = schizosearch;
@@ -23,19 +27,21 @@
             go
           ];
         };
-          treefmt.config = {
-      projectRootFile = "flake.nix";
+        treefmt.config = {
+          projectRootFile = "flake.nix";
+          programs = {
+            alejandra.enable = true;
+            deadnix.enable = true;
+            gofumpt.enable = true;
+            prettier.enable = true;
+            statix.enable = true;
+          };
 
-      programs = {
-        alejandra.enable = true;
-        deadnix.enable = true;
-        gofumpt.enable = true;
-        prettier.enable = true;
-        statix.enable = true;
+          settings.formatter.prettier.options = ["--tab-width" "4"];
+        };
       };
-
-      settings.formatter.prettier.options = ["--tab-width" "4"];
-    };
+      flake = {
+        nixosModules.default = import ./module.nix inputs;
       };
     };
 }
