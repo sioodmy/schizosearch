@@ -2,7 +2,7 @@ BINARY=schizosearch
 STYLEDIR=./web/theme
 
 build: styles
-	go build -o ./bin/${BINARY} cmd/schizosearch/main.go
+	go build -o ./bin/${BINARY} main.go
 
 styles:
 	mkdir -p app
