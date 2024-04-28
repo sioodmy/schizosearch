@@ -13,7 +13,7 @@ import (
 var static embed.FS
 
 func serve_static() http.Handler {
-	sub, err := fs.Sub(static, "static")
+	sub, err := fs.Sub(static, "static/public")
 	if err != nil {
 		panic(err)
 	}

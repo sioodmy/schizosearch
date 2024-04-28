@@ -45,7 +45,7 @@ type TorrentResultPage struct {
 
 func GetResults(w http.ResponseWriter, r *http.Request) {
 
-	tpl, err := template.New("").ParseGlob("web/templates/*.html")
+	tpl, err := template.New("").ParseGlob("static/templates/*.html")
 
 	if err != nil {
 		log.Fatalln("Template error ", err)

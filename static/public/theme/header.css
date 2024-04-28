@@ -1,0 +1,33 @@
+header {
+  padding: 20px;
+  border-bottom: 1px solid var(--surface0);
+}
+
+header input {
+  width: 450px;
+}
+h1 { font-size: 30px; }
+nav {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.category {
+  text-decoration: none;
+  font-size: 20px;
+  margin: 0 6px;
+  color: var(--text);
+  font-weight: 500;
+}
+.selected {
+  border-bottom: 1px solid var(--pink);
+}
+
+@media (max-width: 630px) {
+  nav {flex-direction: column; }
+  header input {
+    width: 100%;
+    margin-top: 1rem;
+  }
+}
+
