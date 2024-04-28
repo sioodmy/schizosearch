@@ -1,7 +1,6 @@
 package libreurl
 
 import (
-	"fmt"
 	"strings"
 )
 
@@ -17,7 +16,6 @@ var libre map[string]string = map[string]string{
 func LibreUrl(url *string) {
 	for spyware, replacement := range libre {
 		if strings.Contains(*url, spyware) {
-			fmt.Println("found", spyware, " replacing with ", replacement)
 			*url = strings.Replace(*url, spyware, replacement, 1)
 
 		}
