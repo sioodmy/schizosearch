@@ -1,8 +1,6 @@
 package search
 
 import (
-	"fmt"
-
 	"github.com/sioodmy/schizosearch/pkg/generic"
 )
 
@@ -10,7 +8,6 @@ func Search(query string) []generic.GenericResult {
 	// results_chan := make(chan []generic.GenericResult)
 
 	engines := []generic.GenericEngine{
-
 		{
 			Search_url:       "https://html.duckduckgo.com/html/?q=%s&kd=-1",
 			Res_selector:     "div.web-result",
@@ -31,7 +28,6 @@ func Search(query string) []generic.GenericResult {
 
 	for _, engine := range engines {
 		go func(e generic.GenericEngine) {
-			fmt.Println("searching", query)
 			results <- e.Search(query)
 		}(engine)
 	}

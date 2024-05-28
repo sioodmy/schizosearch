@@ -17,8 +17,6 @@ func LibreUrl(url *string) {
 	for spyware, replacement := range libre {
 		if strings.Contains(*url, spyware) {
 			*url = strings.Replace(*url, spyware, replacement, 1)
-
 		}
 	}
-
 }

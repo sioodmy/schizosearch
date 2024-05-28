@@ -36,7 +36,7 @@ type GenericResultPage struct {
 }
 type ImageResultPage struct {
 	Header  HeaderData
-	Results [50]imagesearch.ImageResult
+	Results []imagesearch.ImageResult
 }
 type TorrentResultPage struct {
 	Header  HeaderData
@@ -44,9 +44,7 @@ type TorrentResultPage struct {
 }
 
 func GetResults(w http.ResponseWriter, r *http.Request) {
-
 	tpl, err := template.New("").ParseGlob("static/templates/*.html")
-
 	if err != nil {
 		log.Fatalln("Template error ", err)
 	}
@@ -91,5 +89,4 @@ func GetResults(w http.ResponseWriter, r *http.Request) {
 		}
 		tpl.ExecuteTemplate(w, "results.html", &template_data)
 	}
-
 }

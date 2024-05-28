@@ -18,7 +18,6 @@ type TorrentResult struct {
 }
 
 func Search(query string) []TorrentResult {
-
 	target_url := fmt.Sprintf("https://1337x.to/search/%s/1/", query)
 	c := colly.NewCollector()
 	c.Async = false
@@ -42,8 +41,7 @@ func Search(query string) []TorrentResult {
 		size := e.ChildText("td.coll-4")
 		attrs := e.ChildAttrs("td.coll-1 a", "href")
 		if len(attrs) == 2 {
-			r.Url =
-				fmt.Sprintf("https://1337x.to%s", attrs[1])
+			r.Url = fmt.Sprintf("https://1337x.to%s", attrs[1])
 		}
 
 		r.Size = strings.TrimSuffix(size, r.Seeders)

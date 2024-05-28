@@ -16,7 +16,6 @@ type GenericResult struct {
 }
 
 func (s *GenericEngine) Search(query string) []GenericResult {
-
 	c := colly.NewCollector()
 
 	c.OnError(func(_ *colly.Response, err error) {
@@ -47,5 +46,4 @@ func (s *GenericEngine) Search(query string) []GenericResult {
 	c.Visit(target_url)
 
 	return results
-
 }

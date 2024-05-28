@@ -1,10 +1,10 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html>
 
 <head>
   {{define "head"}}
   <title>SchizoSearch {{.Query}}</title>
-  <link rel="stylesheet" href="theme/style.css">
+  <link rel="stylesheet" href="theme/style.css" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   {{end}}
 </head>
@@ -21,23 +21,15 @@
         <a href="/search?q={{.Query}}&t=img" class="category {{if eq .Type 1}}selected{{end}}">Images</a>
         <a href="/search?q={{.Query}}&t=torrent" class="category {{if eq .Type 2}}selected{{end}}">Torrents</a>
       </div>
-
     </nav>
     <form action="/search" method="get">
       <input type="text" name="q" placeholder="{{.Query}}" />
     </form>
   </header>
-  {{end}}
-
-
-  {{define "footer"}}
-  <footer>
-    sioodmy
-
-  </footer>
+  {{end}} {{define "footer"}}
+  <footer>sioodmy</footer>
 
   {{end}}
-
 </body>
 
 </html>

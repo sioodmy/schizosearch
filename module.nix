@@ -19,10 +19,9 @@ in {
       description = "Schizosearch package";
     };
     openFirewall = mkEnableOption "Open ports required for schizosearch";
-
   };
   config = mkIf cfg.enable {
-    systemd.services.schizosearch= {
+    systemd.services.schizosearch = {
       description = "Privacy friendly meta search engine";
       wantedBy = ["multi-user.target"];
       wants = ["network.target"];

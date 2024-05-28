@@ -20,8 +20,8 @@ func serve_static() http.Handler {
 	file_server := http.FileServer(http.FS(sub))
 	return file_server
 }
-func main() {
 
+func main() {
 	http.Handle("/", serve_static())
 	http.HandleFunc("/search", results.GetResults)
 
@@ -29,5 +29,4 @@ func main() {
 	if err != nil {
 		log.Fatalln(err)
 	}
-
 }

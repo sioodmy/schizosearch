@@ -1,4 +1,4 @@
-<!DOCTYPE HTML>
+<!doctype html>
 <html>
 
 <head>
@@ -6,8 +6,7 @@
 </head>
 
 <body>
-  {{template "header" .Header}}
-  {{range .Results}}
+  {{template "header" .Header}} {{range .Results}}
   <div class="result">
     <a href="{{ .Url }}">
       {{.Url}}
@@ -18,7 +17,6 @@
   {{else}}
   <h2 class="error">no results :c</h2>
   {{end}}
-
 </body>
 
 </html>

@@ -1,4 +1,4 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html>
 
 <head>
@@ -10,16 +10,15 @@
   <div class="gallery">
     {{range .Results}}
     <div class="pic">
+      <a href="{{ .ImageUrl }}">
+        <img src="{{ .Thumbnail }}" alt="{{ .Title }}" width="300" />
+      </a>
       <a href="{{ .Url }}">
-        <img src="{{ .Image }}" alt="{{ .Title }}" width="300" />
         <b>{{ .Title }}</b>
       </a>
     </div>
-    {{else}}
-    no results :c
-    {{end}}
+    {{else}} no results :c {{end}}
   </div>
-
 </body>
 
 </html>
