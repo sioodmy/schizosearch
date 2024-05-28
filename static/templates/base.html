@@ -1,35 +1,45 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
+    <head>
+        {{define "head"}}
+        <title>SchizoSearch {{.Query}}</title>
+        <link rel="stylesheet" href="theme/style.css" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        {{end}}
+    </head>
 
-<head>
-  {{define "head"}}
-  <title>SchizoSearch {{.Query}}</title>
-  <link rel="stylesheet" href="theme/style.css" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  {{end}}
-</head>
+    <body>
+        {{define "header"}}
+        <header>
+            <nav>
+                <a href="/" class="logo">
+                    <h1>SchizoSearch <span>:3</span></h1>
+                </a>
+                <div class="categories">
+                    <a
+                        href="/search?q={{.Query}}"
+                        class="category {{if eq .Type 0}}selected{{end}}"
+                        >General</a
+                    >
+                    <a
+                        href="/search?q={{.Query}}&t=img"
+                        class="category {{if eq .Type 1}}selected{{end}}"
+                        >Images</a
+                    >
+                    <a
+                        href="/search?q={{.Query}}&t=torrent"
+                        class="category {{if eq .Type 2}}selected{{end}}"
+                        >Torrents</a
+                    >
+                </div>
+            </nav>
+            <form action="/search" method="get">
+                <input type="text" name="q" placeholder="{{.Query}}" />
+            </form>
+        </header>
+        {{end}} {{define "footer"}}
+        <footer>sioodmy</footer>
 
-<body>
-  {{define "header"}}
-  <header>
-    <nav>
-      <a href="/" class="logo">
-        <h1>SchizoSearch <span>:3</span></h1>
-      </a>
-      <div class="categories">
-        <a href="/search?q={{.Query}}" class="category {{if eq .Type 0}}selected{{end}}">General</a>
-        <a href="/search?q={{.Query}}&t=img" class="category {{if eq .Type 1}}selected{{end}}">Images</a>
-        <a href="/search?q={{.Query}}&t=torrent" class="category {{if eq .Type 2}}selected{{end}}">Torrents</a>
-      </div>
-    </nav>
-    <form action="/search" method="get">
-      <input type="text" name="q" placeholder="{{.Query}}" />
-    </form>
-  </header>
-  {{end}} {{define "footer"}}
-  <footer>sioodmy</footer>
-
-  {{end}}
-</body>
-
+        {{end}}
+    </body>
 </html>

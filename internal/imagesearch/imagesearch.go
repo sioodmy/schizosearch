@@ -60,5 +60,4 @@ func SearchImg(query string) []ImageResult {
 
 	fmt.Println(response.Data.Result.Items)
 	return response.Data.Result.Items
-
 }

@@ -2,9 +2,10 @@ package leetxmagnet
 
 import (
 	"fmt"
-	"github.com/gocolly/colly"
 	"net/http"
 	"net/url"
+
+	"github.com/gocolly/colly"
 )
 
 func init() {
@@ -38,7 +39,6 @@ func GetMagnet(w http.ResponseWriter, r *http.Request) {
 	}
 
 	http.Redirect(w, r, magnet, http.StatusMovedPermanently)
-
 }
 
 func removeTracker(magnet string) (string, error) {

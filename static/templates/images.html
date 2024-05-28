@@ -1,24 +1,26 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
+    <head>
+        {{template "head" .Header}}
+    </head>
 
-<head>
-  {{template "head" .Header}}
-</head>
-
-<body>
-  {{template "header" .Header}}
-  <div class="gallery">
-    {{range .Results}}
-    <div class="pic">
-      <a href="{{ .ImageUrl }}">
-        <img src="{{ .Thumbnail }}" alt="{{ .Title }}" width="300" />
-      </a>
-      <a href="{{ .Url }}">
-        <b>{{ .Title }}</b>
-      </a>
-    </div>
-    {{else}} no results :c {{end}}
-  </div>
-</body>
-
+    <body>
+        {{template "header" .Header}}
+        <div class="gallery">
+            {{range .Results}}
+            <div class="pic">
+                <a href="{{ .ImageUrl }}">
+                    <img
+                        src="{{ .Thumbnail }}"
+                        alt="{{ .Title }}"
+                        width="300"
+                    />
+                </a>
+                <a href="{{ .Url }}">
+                    <b>{{ .Title }}</b>
+                </a>
+            </div>
+            {{else}} no results :c {{end}}
+        </div>
+    </body>
 </html>
