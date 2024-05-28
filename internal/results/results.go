@@ -16,14 +16,15 @@ type Result struct {
 	Title   string
 	Snippet string
 }
-type TorrentResult struct {
-	Name     string
-	Seeders  string
-	Leechers string
-	Magnet   string
-	Size     string
-	Source   string
-}
+
+// type TorrentResult struct {
+// 	Name     string
+// 	Seeders  string
+// 	Leechers string
+// 	Magnet   string
+// 	Size     string
+// 	Source   string
+// }
 
 type HeaderData struct {
 	Query string

@@ -2,6 +2,7 @@ package main
 
 import (
 	"embed"
+	"fmt"
 	"io/fs"
 	"log"
 	"net/http"
@@ -22,6 +23,7 @@ func serve_static() http.Handler {
 }
 
 func main() {
+	fmt.Println("Starting SchizoSearch")
 	http.Handle("/", serve_static())
 	http.HandleFunc("/search", results.GetResults)
 
